@@ -1,0 +1,27 @@
+# Ansible Version: 2.9
+# Author: Paddy Kelly
+# Date: 14-Jul-20
+# Project: NTC engineer-review
+# Playbook: Excerise 3 - Write a single playbook that adds a loopback interface to all devices in the lab.
+---
+- hosts: ios
+  gather_facts: no
+  vars:
+    subnet:
+      arizona: 1
+      california: 2
+      ny: 3
+      jersey: 4
+  tasks:
+    - name: "CREATE DIR FOR RESULTS"
+      file: path={{playbook_dir}}/results state=directory
+      run_once: true
+    - name: "GATHER FACTS"
+      ios_facts: 
+      register: device_facts  
+    - name: "PRECHECK INTERFACES"
+      debug: 
+        msg: "{{ device_facts['ansible_facts']['ansible_net_interfaces'] | max | regex_search('\\d$') | int + 1 }}"
+    # - name: "CREATE INTERFACE VARIABLES"
+    # - name: "PROVISION INTERFACE"
+    # - name: "POSTCHECK INTERFACE"

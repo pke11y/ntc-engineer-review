@@ -1,0 +1,72 @@
+---
+- hosts: california
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname 
+
+- hosts: ny
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname  
+
+
+- hosts: arizona
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname
+
+- hosts: jersey
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname
+
+- hosts: west_coast
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname
+
+- hosts: east_coast
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname 
+      
+- hosts: eos
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname  
+
+
+- hosts: ios
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname
+
+- hosts: nxos
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname
+
+- hosts: junos
+  gather_facts: yes
+  tasks:
+    - name: "DEBUG INVENTORY HOSTNAME"
+      debug: 
+        var: inventory_hostname

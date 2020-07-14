@@ -1,0 +1,55 @@
+all:
+  hosts:
+  children:
+    california:
+      hosts:
+        csr1: 
+            ansible_host: 172.18.0.6
+        csr2:
+            ansible_host: 172.18.0.4
+        csr3:
+            ansible_host: 172.18.0.6
+    arizona:
+      hosts:
+        eos-leaf1: 
+          ansible_host: 172.18.0.23
+        eos-leaf2:
+          ansible_host: 172.18.0.24
+        eos-spine1:
+          ansible_host: 172.18.0.27
+        eos-spine2:
+          ansible_host: 172.18.0.26
+    ny:
+      hosts:
+        nxos-spine1:
+          ansible_host: 172.18.0.11
+        nxos-spine2:
+          ansible_host: 172.18.0.8
+    jersey:
+      hosts:
+        vmx1:
+          ansible_host: 172.18.0.18
+        vmx2:
+          ansible_host: 172.18.0.14
+        vmx3:
+          ansible_host: 172.18.0.13
+    west_coast:
+      children:
+        california:
+        arizona:
+    east_coast:
+      children:
+        jersey:
+        ny:
+    ios:
+      children:
+        california:
+    eos:
+      children:
+        arizona:
+    nxos:
+      children:
+        ny:
+    junos:
+      children:
+        jersey:
