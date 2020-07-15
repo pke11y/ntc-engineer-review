@@ -1,3 +1,4 @@
 ---
 ansible_network_os: nxos
 ansible_connection: network_cli
+mgmt_subnet: '10.0.4.0/24'

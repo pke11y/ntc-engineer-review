@@ -1,3 +1,4 @@
 ---
 ansible_network_os: junos
 ansible_connection: netconf
+mgmt_subnet: '10.0.3.0/24'

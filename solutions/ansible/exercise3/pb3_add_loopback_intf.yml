@@ -7,21 +7,29 @@
 - hosts: ios
   gather_facts: no
   vars:
-    subnet:
-      arizona: 1
-      california: 2
-      ny: 3
-      jersey: 4
+    interface_type: 'Loopback'
   tasks:
-    - name: "CREATE DIR FOR RESULTS"
-      file: path={{playbook_dir}}/results state=directory
-      run_once: true
+    # - name: "CREATE DIR FOR RESULTS"
+    #   file: path={{playbook_dir}}/results state=directory
+    #   run_once: true
     - name: "GATHER FACTS"
       ios_facts: 
-      register: device_facts  
-    - name: "PRECHECK INTERFACES"
-      debug: 
-        msg: "{{ device_facts['ansible_facts']['ansible_net_interfaces'] | max | regex_search('\\d$') | int + 1 }}"
-    # - name: "CREATE INTERFACE VARIABLES"
-    # - name: "PROVISION INTERFACE"
-    # - name: "POSTCHECK INTERFACE"
+      register: device_facts
+    # - debug:
+    #     msg: "{{ mgmt_subnet | ipaddr('1') | ipaddr('address') }}"
+    - name: "SET INTERFACE NUMBER FACT"
+      set_fact: 
+        interface_number: "{{ device_facts['ansible_facts']['ansible_net_interfaces'] | max | regex_search('\\d$') | int + 1 }}"
+    - name: "SET INTERFACE NAME FACT"
+      set_fact: 
+        interface_name: "{{ interface_type + interface_number }}"
+    - name: "SET IP ADDRESS FACT"
+      set_fact: 
+        host_id: "{{ inventory_hostname | regex_search('\\d$') }}"
+    - name: "PROVISION INTERFACE"
+      ios_config:
+        lines:
+          - ip address {{ mgmt_subnet | ipaddr(host_id) | ipaddr('address') }} {{ mgmt_subnet | ipaddr('netmask') }}
+        parents:
+          - interface {{ interface_name }}
+        save_when: changed
